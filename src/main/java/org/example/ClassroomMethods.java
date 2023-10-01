@@ -1,8 +1,7 @@
 package org.example;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.File;
 
 public class ClassroomMethods {
 
@@ -67,14 +66,22 @@ public class ClassroomMethods {
 
     public void main(String[]args) {
 
-        Path tempDir;
-            try {
-                // Create a temporary directory
-                tempDir = Files.createTempDirectory("temp_directory");
+        try {
+            // Vulnerable code: Using an insecure method to create a temporary directory
+            File tempDir = File.createTempFile("mytemp", "");
 
-                System.out.println("Created temporary directory: " + tempDir.toAbsolutePath());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            // Modify the file into a directory
+            if (!tempDir.delete()) {
+                throw new IOException("Failed to delete the temporary file");
             }
+
+            if (!tempDir.mkdir()) {
+                throw new IOException("Failed to create the temporary directory");
+            }
+
+            System.out.println("Temporary directory created: " + tempDir.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error creating temporary directory: " + e.getMessage());
+        }
     }
 }
