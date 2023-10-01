@@ -1,8 +1,7 @@
 package org.example;
 
-import java.util.Arrays;
-import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 class ClassroomMethodsTest {
     @Test
