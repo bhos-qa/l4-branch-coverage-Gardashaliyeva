@@ -64,13 +64,10 @@ public class ClassroomMethods {
         return 0.5 * base * height;
     }
 
-    public void main(String[]args) {
-
+    public void main() {
         try {
-            // Vulnerable code: Using an insecure method to create a temporary directory
             File tempDir = File.createTempFile("mytemp", "");
 
-            // Modify the file into a directory
             if (!tempDir.delete()) {
                 throw new IOException("Failed to delete the temporary file");
             }
